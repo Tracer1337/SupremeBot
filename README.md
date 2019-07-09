@@ -13,7 +13,7 @@ It is recommended to have a fast internet connection, since it is all about spee
 There are two files you have to change for the bot to work proberly.
 1. [products.json](#anchor-configuration-products)
 1. [checkout.json](#anchor-configuration-checkout)
-<a name="anchor-configuration-config"></a>
+<a name="anchor-configuration-products"></a>
 ### products.json
 This file stores data about the products you want to order. The bot will try to order everything listed in this file with the specifications defined. The scheme is:
 ```JSON
@@ -41,6 +41,6 @@ Before you can use the bot, you have to run ``npm install`` inside the root dire
 
 To start the bot you have to run ``node index.js`` in the terminal inside the root folder of the bot.
 
-Once the bot is running it will create an instance of chromium in which it will excecute the order. The bot will finish on the checkout page on which you only have to accept the order. 
+Once the bot is running it will create an instance of chromium in which it will excecute the order. The bot will finish on the checkout page on which you only have to accept the order.
 
 &copy; 2019 Merlin Moelter
