@@ -29,14 +29,24 @@ const addToCart = async (page, product) => {
 
   await page.goto(url)
 
+  // Set size if neccessary
+  if(product.size) await page.evaluate(size => {
+    const selectElement = document.getElementById("size")
+    const match = Array.from(selectElement.getElementsByTagName("option")).filter(e => e.innerText.toLowerCase().includes(size.toLowerCase()))[0]
+    if(match)
+      selectElement.value = match.value
+  }, product.size)
+
   // Click on "add to cart"
   await page.click(config.selectors.add_to_cart)
   return Promise.resolve(true)
 }
 
+// Main function
 const run = async () => {
-  const browser = await puppeteer.launch({headless: true})
+  const browser = await puppeteer.launch({headless: false})
   const page = await browser.newPage()
+  await page.setViewport({width: 1920, height: 800})
   // Setting Cookies specified in config.json
   await page.goto(config.pages.main)
   config.cookies.forEach(async cookie => await page.setCookie({name: cookie.name, value: cookie.value}))
@@ -52,6 +62,11 @@ const run = async () => {
   }
 
   // Checkout
-
+  await page.goto(config.pages.checkout)
+  await page.evaluate((data) => {
+    for(let field of data)
+      document.getElementsByName(field.name)[0].value = field.value
+  }, config.checkout_autofill)
+  page.$(config.selectors.checkout_terms).then(async e => await e.click())
 }
 run()
