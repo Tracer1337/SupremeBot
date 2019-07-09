@@ -33,7 +33,7 @@ The file is already filled with some data, so you only have to change the fields
 
 <a name="anchor-configuration-checkout"></a>
 ### checkout.json
-This file contains the checkout details which will be auto-filled by the bot. This file does not exist already, but there is a template file with blank fields which you have to fill out with you personal data. It is pretty much self explaining.
+This file contains the checkout details which will be auto-filled by the bot. This file does not exist already, but there is a template file with blank fields which you have to fill out with you personal data and remove the "template" in its name. It is pretty much self explaining.
 
 <a name="anchor-usage"></a>
 # Usage
