@@ -1,5 +1,3 @@
-Support product sizes => products.json can handle e.g. {name: "product1", color: "red", size: "small"}
-
 Progress Bar (https://www.npmjs.com/package/cli-progress)
 
 Time tracker
@@ -7,3 +5,9 @@ Time tracker
 Seperate page for every product => all products can be added at the same time
 
 Installation automation (creating checkout.json automatically)
+
+Add language configuration to readme#
+
+Integrate in an electron app
+
+Inegrate supreme drop list, so the bot can automatically order the most famous items
