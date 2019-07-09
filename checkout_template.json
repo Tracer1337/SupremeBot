@@ -1,0 +1,54 @@
+[
+  {
+    "name": "order[billing_name]",
+    "value": ""
+  },
+  {
+    "name": "order[email]",
+    "value": ""
+  },
+  {
+    "name": "order[tel]",
+    "value": ""
+  },
+  {
+    "name": "order[billing_address]",
+    "value": ""
+  },
+  {
+    "name": "order[billing_address_2]",
+    "value": ""
+  },
+  {
+    "name": "order[billing_city]",
+    "value": ""
+  },
+  {
+    "name": "order[billing_zip]",
+    "value": ""
+  },
+  {
+    "name": "order[billing_country]",
+    "value": ""
+  },
+  {
+    "name": "credit_card[type]",
+    "value": ""
+  },
+  {
+    "name": "credit_card[cnb]",
+    "value": ""
+  },
+  {
+    "name": "credit_card[month]",
+    "value": ""
+  },
+  {
+    "name": "credit_card[year]",
+    "value": ""
+  },
+  {
+    "name": "credit_card[vval]",
+    "value": ""
+  }
+]

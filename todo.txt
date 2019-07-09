@@ -5,3 +5,5 @@ Progress Bar (https://www.npmjs.com/package/cli-progress)
 Time tracker
 
 Seperate page for every product => all products can be added at the same time
+
+Installation automation (creating checkout.json automatically)
