@@ -1,0 +1,21 @@
+{
+  "cookies": [
+    {
+      "name": "lang",
+      "value": "de"
+    }
+  ],
+  "selectors": {
+    "add_to_cart": "input[name='commit']",
+    "product": "article",
+    "product_inner": ".inner-article",
+    "product_name": "h1",
+    "product_color": "p",
+    "product_link": "a",
+    "product_sold_out": ".sold_out_tag"
+  },
+  "pages": {
+    "main": "https://www.supremenewyork.com/shop",
+    "shop": "https://www.supremenewyork.com/shop/all/"
+  }
+}

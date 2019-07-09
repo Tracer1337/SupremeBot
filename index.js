@@ -9,8 +9,10 @@ Array.from(products).forEach(e => {
 })
 console.table(result)
 
-const test = (element, selector, query) => element.querySelector(".inner-article "+selector).innerText.toLowerCase().includes(query.toLowerCase())
 
-const getProductByNameAndColor = (name, color) => Array.from(products).find(e => test(e, "h1", name) && test(e, "p", color))
+const getProductByNameAndColor = (name, color) => {
+	const test = (element, selector, query) => element.querySelector(".inner-article "+selector).innerText.toLowerCase().includes(query.toLowerCase())
+	Array.from(products).find(e => test(e, "h1", name) && test(e, "p", color))
+}
 
 const getProductLink = article => article.querySelector(".inner-article a").href
