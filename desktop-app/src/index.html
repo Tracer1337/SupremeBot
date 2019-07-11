@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Supreme Bot</title>
+  </head>
+  <body>
+    <main id="bot-controls">
+      <button id="bot-setup">Setup bot</button><br><br>
+      <button id="bot-start">Start bot</button>
+    </main>
+
+    <section id="checkout-form-container">
+      <form id="checkout-form"></form>
+      <button id="checkout-form-save">Save</button>
+    </section>
+
+    <section id="products-form-container">
+      <form id="products-form"></form>
+      <button id="products-form-add">Add</button>
+    </section>
+
+    <table id="products-list" border="1"></table>
+
+    <script>
+      const fs = require("fs")
+      const {setup_bot, start_bot} = require("./node-js-script/index.js")
+      const Input = require("./components/Input.js")
+      const config = {
+        checkout: require("./node-js-script/checkout.json"),
+        config: require("./node-js-script/config.json"),
+        products: require("./node-js-script/products.json"),
+        productsTemplate: require("./node-js-script/products-template.json")
+      }
+      const {fillProductsForm, showProducts, handleProductsFormSubmition} = require("./components/ProductsForm.js")
+      const {fillCheckoutForm, handleCheckoutFormSubmition} = require("./components/CheckoutForm.js")
+
+      // Setup / Start bot on button press
+      document.getElementById("bot-setup").addEventListener("click", setup_bot)
+      document.getElementById("bot-start").addEventListener("click", start_bot)
+
+      // Handle Products Data
+      const productsForm = document.getElementById("products-form")
+      const productsFormAddBtn = document.getElementById("products-form-add")
+      const productsList = document.getElementById("products-list")
+
+      fillProductsForm(productsForm, config.productsTemplate)
+      showProducts(productsList, config.products)
+      productsFormAddBtn.addEventListener("click", () => {
+        handleProductsFormSubmition(productsForm, config.products)
+        showProducts(productsList, config.products)
+      })
+
+      // Handle Checkout Data
+      const checkoutForm = document.getElementById("checkout-form")
+      const checkoutFormSaveBtn = document.getElementById("checkout-form-save")
+
+      fillCheckoutForm(checkoutForm, config.checkout)
+      checkoutFormSaveBtn.addEventListener("click", () => handleCheckoutFormSubmition(checkoutForm, config.checkout))
+
+    </script>
+  </body>
+</html>
