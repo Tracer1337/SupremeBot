@@ -46,44 +46,46 @@ const addToCart = async (page, product) => {
   return Promise.resolve(true)
 }
 
-// Main function
+// Global reference of the main page
+let page
+
+// Starts browser and sets it up
 const setup = async () => {
   // Setting up puppeteer
   const browser = await puppeteer.launch({headless: false, args: ["--start-maximized"]})
-  const page = await browser.newPage()
+  page = await browser.newPage()
   await page.setViewport({width: 1920, height: 800})
 
   // Setting Cookies specified in config.json
   await page.goto(config.pages.main)
   config.cookies.forEach(async cookie => await page.setCookie({name: cookie.name, value: cookie.value}))
+}
 
-  const run = async () => {
-    // Initializing timer
-    console.time("Excecution time")
+// Orders products
+const run = async () => {
+  // Initializing timer
+  console.time("Excecution time")
 
-    console.log("Trying to order:")
-    console.table(productsToOrder)
+  console.log("Trying to order:")
+  console.table(productsToOrder)
 
-    // Add all products to cart
-    for(let p of productsToOrder){
-      const addedToCart = await addToCart(page, p)
-      if(!addedToCart) console.log(chalk.red(`${p.name} - ${p.color}: sold out`))
-      else console.log(chalk.green(`${p.name} - ${p.color}: added to cart`))
-      await sleep(.1)
-    }
-
-    // Checkout autofill
-    await page.goto(config.pages.checkout)
-    console.log("Checkout loaded")
-    await page.evaluate((data) => {
-      for(let field of data)
-        document.getElementsByName(field.name)[0].value = field.value
-    }, checkout_autofill)
-    page.$(config.selectors.checkout_terms).then(async e => await e.click())
-    console.timeEnd("Excecution time")
+  // Add all products to cart
+  for(let p of productsToOrder){
+    const addedToCart = await addToCart(page, p)
+    if(!addedToCart) console.log(chalk.red(`${p.name} - ${p.color}: sold out`))
+    else console.log(chalk.green(`${p.name} - ${p.color}: added to cart`))
+    await sleep(.1)
   }
 
-  // schedule.scheduleJob("20 16 20 * * *", run)
-  run()
+  // Checkout autofill
+  await page.goto(config.pages.checkout)
+  console.log("Checkout loaded")
+  await page.evaluate((data) => {
+    for(let field of data)
+      document.getElementsByName(field.name)[0].value = field.value
+  }, checkout_autofill)
+  page.$(config.selectors.checkout_terms).then(async e => await e.click())
+  console.timeEnd("Excecution time")
 }
-setup()
+
+module.exports = {setup_bot: setup, start_bot: run}

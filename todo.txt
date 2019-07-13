@@ -2,8 +2,4 @@ Seperate page for every product => all products can be added at the same time
 
 Installation automation (creating checkout.json automatically)
 
-Add language configuration to readme
-
-Integrate in an electron app
-
-Inegrate supreme drop list, so the bot can automatically order the most famous items
+Integrate supreme drop list, so the bot can automatically order the most famous items

@@ -4,9 +4,7 @@ const schedule = require("node-schedule")
 
 const config = require("./config.json")
 const checkout_autofill = require("./checkout.json")
-const {products} = require("./products.json")
-const productsToOrder = products
-delete products
+const productsToOrder = require("./products.json")
 
 // Sleep t seconds
 const sleep = t => new Promise(resolve => setTimeout(resolve, t*1000))
@@ -48,8 +46,10 @@ const addToCart = async (page, product) => {
   return Promise.resolve(true)
 }
 
+// Global reference of the main page
 let page
-// Main function
+
+// Starts browser and sets it up
 const setup = async () => {
   // Setting up puppeteer
   const browser = await puppeteer.launch({headless: false, args: ["--start-maximized"]})
@@ -59,24 +59,33 @@ const setup = async () => {
   // Setting Cookies specified in config.json
   await page.goto(config.pages.main)
   config.cookies.forEach(async cookie => await page.setCookie({name: cookie.name, value: cookie.value}))
-
-  // schedule.scheduleJob("20 16 20 * * *", run)
 }
 
+// Orders products
 const run = async () => {
+  // Initializing timer
+  console.time("Excecution time")
+
+  console.log("Trying to order:")
+  console.table(productsToOrder)
+
   // Add all products to cart
   for(let p of productsToOrder){
     const addedToCart = await addToCart(page, p)
+    if(!addedToCart) console.log(chalk.red(`${p.name} - ${p.color}: sold out`))
+    else console.log(chalk.green(`${p.name} - ${p.color}: added to cart`))
     await sleep(.1)
   }
 
   // Checkout autofill
   await page.goto(config.pages.checkout)
+  console.log("Checkout loaded")
   await page.evaluate((data) => {
     for(let field of data)
       document.getElementsByName(field.name)[0].value = field.value
   }, checkout_autofill)
   page.$(config.selectors.checkout_terms).then(async e => await e.click())
+  console.timeEnd("Excecution time")
 }
 
 module.exports = {setup_bot: setup, start_bot: run}

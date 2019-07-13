@@ -1,36 +1,19 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
-const { setup_bot, start_bot } = require("./node-js-script/index.js")
+import React from "react"
+import ReactDOM from "react-dom"
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) // eslint-disable-line global-require
-  app.quit()
+import "./assets/sass/styles.scss"
 
-let mainWindow
+import Component1 from "./components/Component1.js"
 
-const createWindow = () => {
-  mainWindow = new BrowserWindow({
-    width: 1400,
-    height: 800,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
+const {setup_bot, start_bot} = require("./node-scripts/index.js")
+window.setup_bot = setup_bot
+window.start_bot = start_bot
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+const App = () => (
+  <div>
+    <h1>React works with JSX!</h1>
+    <Component1/>
+  </div>
+)
 
-  mainWindow.webContents.openDevTools()
-
-  mainWindow.on('closed', () => mainWindow = null)
-}
-
-app.on('ready', createWindow)
-
-app.on('window-all-closed', () => {
-  // Mac OS
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-// Mac OS
-app.on('activate', () => !mainWindow ? createWindow() : null)
+ReactDOM.render(<App/>, document.getElementById("root"))
