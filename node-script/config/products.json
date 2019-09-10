@@ -1,0 +1,14 @@
+[
+  {
+    "name": "anorak",
+    "category": "jackets",
+    "color": "black",
+    "size": "medium"
+    },
+    {
+      "name": "harrington",
+      "category": "jackets",
+      "color": "tiger",
+      "size": "medium"
+    }
+]
